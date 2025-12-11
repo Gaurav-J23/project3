@@ -27,3 +27,14 @@
 - Verified all commands work correctly including edge cases
 - Implementation maintains constraint of never having more than 3 nodes in memory
 
+## Bug Fixes - December 10, 2025
+- Fixed critical bug in `insert_key_value`: After root split, `insert_non_full` was receiving stale `header['next_block_id']` instead of updated `next_block_id` variable
+  - This could cause block ID reuse and tree corruption after root splits
+  - Changed to use current `next_block_id` variable after splits
+- Fixed output format: Changed search and print commands to use space-separated output (e.g., "15 100") instead of comma-separated
+  - CSV operations (load/extract) correctly remain comma-separated
+- Verified fixes with comprehensive testing:
+  - Tested with 100 insertions (triggers multiple root splits)
+  - All operations work correctly after fixes
+  - Tree structure maintained correctly through multiple splits
+
